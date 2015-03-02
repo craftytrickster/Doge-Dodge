@@ -16,15 +16,17 @@ BaseCharacter.prototype.update = function(dt) {
 
   var offsetX = this.velocityX * dt / 1000;
   this.posX += offsetX;
-  if (this.posX > RIGHT_BOUNDARY) {
-    this.posX = RIGHT_BOUNDARY;
-  }
-  else if (this.posX < LEFT_BOUNDARY) {
-      this.posX = LEFT_BOUNDARY;
-  }
-
-
   this.posY += this.velocityY;
+
+  // enforce boundaries
+  if (this.posX + this.width / 2 > RIGHT_BOUNDARY) {
+    this.posX = RIGHT_BOUNDARY - this.width / 2;
+  }
+  else if (this.posX - this.width / 2 < LEFT_BOUNDARY) {
+      this.posX = LEFT_BOUNDARY + this.width / 2;
+  }
+
+
   if (this.posY - this.height / 2 < FLOOR) {
     this.posY = FLOOR + this.height / 2;
     this.velocityY = 0;
