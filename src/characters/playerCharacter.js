@@ -36,7 +36,7 @@ PlayerCharacter.prototype.paint = function(context) {
 
 // No need to instantiate image every time, we just need a global reference
 var dogeImage = new Image();
-dogeImage.src = 'characters/largeDoge.jpg';
+dogeImage.src = 'src/characters/largeDoge.jpg';
 var dogeLoaded = false;
 dogeImage.onload = function() {
   dogeLoaded = true;
