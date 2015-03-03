@@ -11,7 +11,7 @@ function GameMaster() {
   this.width = this.context.canvas.width;
   this.height = this.context.canvas.height;
 
-  this.keyMap = { left: false, right: false }; // represents user input
+  this.keyMap = { left: false, right: false, up: false }; // represents user input
   this.protagonist = null;
   this.gameObjects = [];
 
@@ -31,6 +31,10 @@ function GameMaster() {
     }
     else if (keyCode === 39) {
       keyMap.right = isPressed;
+    }
+
+    if (keyCode === 38) {
+      keyMap.up = isPressed;
     }
   }
 }

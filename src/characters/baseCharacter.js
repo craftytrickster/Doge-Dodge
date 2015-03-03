@@ -19,23 +19,30 @@ BaseCharacter.prototype.update = function(dt) {
   this.posY += this.velocityY;
 
   // enforce boundaries
-  if (this.posX + this.width / 2 > RIGHT_BOUNDARY) {
+  if (this._isOutsideRightBoundary()) {
     this.posX = RIGHT_BOUNDARY - this.width / 2;
   }
-  else if (this.posX - this.width / 2 < LEFT_BOUNDARY) {
+  else if (this._isOutsideLeftBoundary()) {
       this.posX = LEFT_BOUNDARY + this.width / 2;
   }
 
-
-  if (this.posY - this.height / 2 < FLOOR) {
-    this.posY = FLOOR + this.height / 2;
-    this.velocityY = 0;
-  }
 
   if (this.health <= 0) {
     this.isDestroyed = true;
   }
 };
+
+BaseCharacter.prototype._isOutsideRightBoundary = function() {
+  return (this.posX + this.width / 2 > RIGHT_BOUNDARY);
+}
+
+BaseCharacter.prototype._isOutsideLeftBoundary = function() {
+  return (this.posX - this.width / 2 < LEFT_BOUNDARY);
+}
+
+BaseCharacter.prototype._isAtOrBelowFloor = function() {
+  return (this.posY - this.height / 2 <= FLOOR);
+}
 
 
 BaseCharacter.prototype.paint = function(context) {
@@ -48,7 +55,15 @@ BaseCharacter.prototype.paint = function(context) {
 
 // util function
 function applyGravity(character, dt) {
-  character.velocityY -= 9.81 * dt / 1000;
+  if (character._isAtOrBelowFloor()) {
+    character.posY = FLOOR + character.height / 2;
+    if (character.velocityY <= 0) {
+      character.velocityY = 0;
+    }
+  }
+  else {
+    character.velocityY -= 25 * dt / 1000;
+  }
 }
 
 

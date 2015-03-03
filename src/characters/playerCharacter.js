@@ -10,13 +10,17 @@ PlayerCharacter.prototype.constructor = PlayerCharacter;
 
 PlayerCharacter.prototype.update = function(dt) {
   if (this.keyMap.left && !this.keyMap.right) {
-    this.velocityX = - 240;
+    this.velocityX = - 340;
   }
   else if (this.keyMap.right && !this.keyMap.left) {
-    this.velocityX = 240;
+    this.velocityX = 340;
   }
   else {
     this.velocityX = 0;
+  }
+
+  if (this.keyMap.up && this.velocityY <= 0 && this._isAtOrBelowFloor()) {
+    this.velocityY = 15;
   }
 
   BaseCharacter.prototype.update.call(this, dt);
