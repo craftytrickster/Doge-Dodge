@@ -7,11 +7,15 @@
     <script src="src/gameMaster.js"></script>
     <script src="src/characters/baseCharacter.js"></script>
     <script src="src/characters/playerCharacter.js"></script>
+    <script src="src/characters/dogePhrase.js"></script>
 </head>
 <body>
   <!-- do not resize canvas width/height with css -->
   <canvas id="gameCanvas" width="640" height="480"
     style="border: 1px black solid;">Please stop using IE8</canvas>
+
+  <!-- Used for prerendering text -->
+  <canvas style="display: none;" id="offscreenCanvas" width="500" height="300"></canvas>
 </body>
 <script src="src/main.js"></script>
 </html>
