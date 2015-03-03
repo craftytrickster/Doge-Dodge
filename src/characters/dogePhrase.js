@@ -7,17 +7,16 @@ function DogePhrase() {
 
   this.width = this.imageData.width;
   this.height = this.imageData.height;
-
-  // set random positions
-  this.posY = CEILING;
-  this.posX =
-  (LEFT_BOUNDARY + this.width / 2) +
-  ( Math.random() * (RIGHT_BOUNDARY - this.width / 2 - LEFT_BOUNDARY));
 }
 
 
 DogePhrase.prototype = Object.create(BaseCharacter.prototype);
 DogePhrase.prototype.constructor = DogePhrase;
+
+DogePhrase.prototype.update = function(dt) {
+  this.fallingStrategy(dt);
+};
+
 
 DogePhrase.prototype.paint = function(context) {
   context.putImageData(this.imageData, this.posX - this.width / 2 , getYDrawPoint(this.posY) - this.height / 2);
