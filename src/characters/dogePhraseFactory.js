@@ -1,5 +1,6 @@
 function createNewDogePhrase() {
   var dogePhrase = null;
+  var random = Math.random();
 
   if (Math.random() >= 0.5) {
     dogePhrase = createVerticalDoge();
@@ -10,7 +11,7 @@ function createNewDogePhrase() {
       dogePhrase = createRightDoge();
     }
     else {
-      dogePhrase = createRightDoge();
+      dogePhrase = createLeftDoge();
     }
   }
 
@@ -34,7 +35,7 @@ function createVerticalDoge() {
 function createRightDoge() {
   var dogePhrase = new DogePhrase();
 
-  dogePhrase.velocityX = 220 + Math.random() * 50;
+  dogePhrase.velocityX = 200 + Math.random() * 50;
   dogePhrase.fallingStrategy = rightScroller;
   dogePhrase.posX = LEFT_BOUNDARY;
 
@@ -47,7 +48,7 @@ function createRightDoge() {
 function createLeftDoge() {
   var dogePhrase = new DogePhrase();
 
-  dogePhrase.velocityX = -220 - Math.random() * 50;
+  dogePhrase.velocityX = -200 - Math.random() * 50;
   dogePhrase.fallingStrategy = leftScroller;
   dogePhrase.posX = RIGHT_BOUNDARY;
 
