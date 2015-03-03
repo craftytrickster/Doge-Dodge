@@ -44,7 +44,9 @@ DogePhrase.prototype._getRenderedImageData = function(context) {
   context.restore();
 
   // adding some slack since we only get estimated height :( with canvas api
-  return context.getImageData(offscreenX, offscreenY - estimatedHeight / 2 - 15, renderedWidth, estimatedHeight + 15);
+  var imageData = context.getImageData(offscreenX, offscreenY - estimatedHeight / 2 - 15, renderedWidth, estimatedHeight + 15);
+  context.clearRect(offscreenX, offscreenY - estimatedHeight / 2 - 15, renderedWidth, estimatedHeight + 15);
+  return imageData;
 };
 
 

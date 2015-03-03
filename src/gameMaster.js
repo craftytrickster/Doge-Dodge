@@ -14,6 +14,7 @@ function GameMaster() {
   this.keyMap = { left: false, right: false, up: false }; // represents user input
   this.protagonist = null;
   this.gameObjects = [];
+  this.lastEnemyAdded = 0;
 
   var keyMap = this.keyMap;
   // initialize keyboard listener
@@ -50,6 +51,8 @@ GameMaster.prototype.tick = function(dt) {
     return;
   }
 
+  this.manageEnemyPipeline(dt);
+
   // update all objects
   this.gameObjects.forEach(function(gameObject) {
     gameObject.update(dt);
@@ -67,6 +70,37 @@ GameMaster.prototype.tick = function(dt) {
   this.gameObjects.forEach(function(gameObject) {
     gameObject.paint(context);
   });
+};
+
+GameMaster.prototype.manageEnemyPipeline = function(dt) {
+  if (this.gameObjects.length >= 4) {
+    return;
+  }
+
+  this.lastEnemyAdded += dt;
+  if (this.lastEnemyAdded < 1000) {
+      return;
+  }
+
+  this.gameObjects.push(createNewDogePhrase());
+  this.lastEnemyAdded = 0;
+};
+
+
+GameMaster.prototype.startGame = function() {
+  this.animator.startAnimation();
+};
+
+GameMaster.prototype.endGame = function() {
+  this.animator.endAnimation();
+  this.context.clearRect(0, 0, this.width, this.height);
+  this.context.font = '30px Arial';
+  this.context.fillStyle = 'black';
+  this.context.fillText("Such sad...", 50, 100);
+  this.context.fillText("... much collision detected.", 65, 150);
+
+  this.context.font = '50px Arial';
+  this.context.fillText("Game over!", 150, 300);
 };
 
 GameMaster.prototype.processObjectCollisions = function(object1, object2) {
@@ -110,20 +144,4 @@ GameMaster.prototype.processObjectCollisions = function(object1, object2) {
     return xOverlap && yOverlap;
   }
 
-};
-
-GameMaster.prototype.startGame = function() {
-  this.animator.startAnimation();
-};
-
-GameMaster.prototype.endGame = function() {
-  this.animator.endAnimation();
-  this.context.clearRect(0, 0, this.width, this.height);
-  this.context.font = '30px Arial';
-  this.context.fillStyle = 'black';
-  this.context.fillText("Such sad...", 50, 100);
-  this.context.fillText("... much collision detected.", 65, 150);
-
-  this.context.font = '50px Arial';
-  this.context.fillText("Game over!", 150, 300);
 };

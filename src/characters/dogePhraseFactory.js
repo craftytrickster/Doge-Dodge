@@ -26,7 +26,7 @@ function createVerticalDoge() {
     ( Math.random() * (RIGHT_BOUNDARY - dogePhrase.width - LEFT_BOUNDARY));
 
     dogePhrase.fallingStrategy = verticalFaller;
-    dogePhrase.velocityY = - 75 - Math.random() * 20;
+    dogePhrase.velocityY = - 125 - Math.random() * 20;
 
     return dogePhrase;
 }
