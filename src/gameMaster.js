@@ -22,15 +22,25 @@ export class GameMaster {
         this.gameObjects = [];
         this.lastEnemyAdded = 0;
 
+
+        this.pointerDownCoords = null;
+        this.pointerDownTimeout = null;
+        
+        this.initKeyboard();
+        this.initTouch();
+    }
+
+    initKeyboard() {
         const keyMap = this.keyMap;
+        
         // initialize keyboard listener
-        window.addEventListener('keydown', function (e) {
+        window.addEventListener('keydown', (e) => {
             processInput(e.code, true);
         });
-        window.addEventListener('keyup', function (e) {
+
+        window.addEventListener('keyup', (e) => {
             processInput(e.code, false);
         });
-
 
         function processInput(keyCode, isPressed) {
             if (keyCode === 'ArrowLeft') {
@@ -44,6 +54,39 @@ export class GameMaster {
                 keyMap.up = isPressed;
             }
         }
+    }
+
+    initTouch() {
+        window.addEventListener('pointerdown', (e) => {
+            this.pointerDownCoords = { x: e.clientX, y: e.clientY };
+        });
+
+        window.addEventListener('pointermove', (e) => {
+            if (!this.pointerDownCoords) {
+                return;
+            }
+
+            const xDiff = e.clientX - this.pointerDownCoords.x;
+            const yDiff = e.clientY - this.pointerDownCoords.y;
+
+            this.pointerDownCoords.x = e.clientX;
+            this.pointerDownCoords.y = e.clientY;
+
+            this.keyMap.up = yDiff < -10;
+            this.keyMap.left = xDiff < 0;
+            this.keyMap.right = xDiff > 0;            
+        });
+
+        const clean = () => {
+            this.pointerDownCoords = null;
+            this.keyMap.left = false;
+            this.keyMap.right = false;
+            this.keyMap.up = false;
+        };
+
+        window.addEventListener('pointerup', clean);
+        window.addEventListener('pointerout', clean);
+        window.addEventListener('pointercancel', clean);
     }
 
     tick(dt) {
