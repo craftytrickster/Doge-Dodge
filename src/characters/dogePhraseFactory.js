@@ -1,4 +1,7 @@
-function createNewDogePhrase() {
+import { DogePhrase } from './dogePhrase.js';
+import { FLOOR, CEILING, LEFT_BOUNDARY, RIGHT_BOUNDARY } from '../gameMaster.js';
+
+export function createNewDogePhrase() {
   var dogePhrase = null;
   var random = Math.random();
 

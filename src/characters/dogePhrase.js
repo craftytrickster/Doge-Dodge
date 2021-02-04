@@ -1,4 +1,6 @@
-function DogePhrase() {
+import { BaseCharacter, getYDrawPoint } from './baseCharacter.js';
+
+export function DogePhrase() {
   BaseCharacter.call(this);
 
   // DogePhrase will take advantage of an offscreen canvas in order to render initial data

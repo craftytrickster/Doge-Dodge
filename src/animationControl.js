@@ -1,4 +1,4 @@
-function AnimationControl() {
+export function AnimationControl() {
   this.curTime = 0;
   this.haltAnimation = true;
   this.subscribers = [];

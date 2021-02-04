@@ -1,4 +1,6 @@
-function BaseCharacter() {
+import { FLOOR, CEILING, LEFT_BOUNDARY, RIGHT_BOUNDARY } from '../gameMaster.js';
+
+export function BaseCharacter() {
   this.velocityX = 0;
   this.velocityY = 0;
 
@@ -67,6 +69,6 @@ function applyGravity(character, dt) {
 }
 
 
-function getYDrawPoint(yPos) { // canvas Y coordinates are inverted
+export function getYDrawPoint(yPos) { // canvas Y coordinates are inverted
   return CEILING - yPos;
 }

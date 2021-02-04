@@ -1,4 +1,7 @@
-function PlayerCharacter(keyMap) {
+import { BaseCharacter, getYDrawPoint } from './baseCharacter.js';
+import { LEFT_BOUNDARY, RIGHT_BOUNDARY } from '../gameMaster.js';
+
+export function PlayerCharacter(keyMap) {
   BaseCharacter.call(this);
   this.posX = LEFT_BOUNDARY + RIGHT_BOUNDARY / 2;
   this.posY = 200;

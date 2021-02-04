@@ -1,9 +1,12 @@
-var CEILING = 480;
-var FLOOR = 20;
-var LEFT_BOUNDARY = 0;
-var RIGHT_BOUNDARY = 640;
+import { AnimationControl } from './animationControl.js';
+import { createNewDogePhrase } from './characters/dogePhraseFactory.js';
 
-function GameMaster() {
+export const CEILING = 480;
+export const FLOOR = 20;
+export const LEFT_BOUNDARY = 0;
+export const RIGHT_BOUNDARY = 640;
+
+export function GameMaster() {
   this.animator = new AnimationControl();
   this.animator.addSubscriber(this);
 
