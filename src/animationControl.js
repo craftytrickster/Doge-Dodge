@@ -1,42 +1,43 @@
-function AnimationControl() {
-  this.curTime = 0;
-  this.haltAnimation = true;
-  this.subscribers = [];
-}
+'use strict';
 
-{
-  AnimationControl.prototype.startAnimation = function() {
-    this.haltAnimation = false;
-    this.curTime = 0;
-    this.lastElapsed = 0;
-
-    window.requestAnimationFrame(this.animate.bind(this));
-  };
-
-  AnimationControl.prototype.endAnimation = function() {
-    this.haltAnimation = true;
-  };
-
-  AnimationControl.prototype.animate = function(timestamp) {
-    if (this.haltAnimation === true) {
-      return;
+export class AnimationControl {
+    constructor() {
+        this.curTime = 0;
+        this.haltAnimation = true;
+        this.subscribers = [];
     }
 
-    var lastElapsed = timestamp - this.curTime;
-    this.curTime = timestamp;
-    this.alertNewTick(lastElapsed);
+    startAnimation() {
+        this.haltAnimation = false;
+        this.curTime = 0;
+        this.lastElapsed = 0;
 
-    window.requestAnimationFrame(this.animate.bind(this));
-  };
+        window.requestAnimationFrame(this.animate.bind(this));
+    }
 
-  AnimationControl.prototype.addSubscriber = function(subscriber) {
-    this.subscribers.push(subscriber);
-  };
+    endAnimation() {
+        this.haltAnimation = true;
+    }
 
-  AnimationControl.prototype.alertNewTick = function(tickDuration) {
-    this.subscribers.forEach(function(subscriber) {
-      subscriber.tick(tickDuration);
-    });
-  };
+    animate(timestamp) {
+        if (this.haltAnimation === true) {
+            return;
+        }
 
+        const lastElapsed = timestamp - this.curTime;
+        this.curTime = timestamp;
+        this.alertNewTick(lastElapsed);
+
+        window.requestAnimationFrame(this.animate.bind(this));
+    }
+
+    addSubscriber(subscriber) {
+        this.subscribers.push(subscriber);
+    }
+
+    alertNewTick(tickDuration) {
+        this.subscribers.forEach(function (subscriber) {
+            subscriber.tick(tickDuration);
+        });
+    }
 }
